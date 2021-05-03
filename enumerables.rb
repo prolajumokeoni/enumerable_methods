@@ -1,20 +1,18 @@
 module Enumerable
-  def my_each 
+  def my_each(&block)
     return to_enum(:my_each) unless block_given?
-    for i in to_a
-      yield(i)  
+    to_a.each(&block)
+    self
+  end
+
+  def my_each_with_index
+    return to_enum(:my_each_with_index) unless block_given?
+    (0...to_a.length).each do |i|
+      yield(to_a[i], i)
     end
     self
   end
 
-  def my_each_with_index 
-    return to_enum(:my_each_with_index) unless block_given?
-    for i in 0...to_a.length
-      yield(to_a[i],i)  
-    end
-    self
-  end
-  
   def my_select
     return to_enum(:my_each) unless block_given?
     my_array = []
@@ -25,15 +23,15 @@ module Enumerable
   end
 
   def my_all?(*arg)
-    if  !arg[0].nil?
+    if !arg[0].nil?
       result = true
       my_each do |item|
-        result = false unless arg[0] ===  item
+        result = false unless arg[0] === item
       end
     elsif !block_given?
       result = true
       my_each do |item|
-      result = false unless item
+        result = false unless item
       end
     else
       result = true
@@ -41,7 +39,6 @@ module Enumerable
         result = false unless yield(item)
       end
     end
-    result 
-  end  
+    result
+  end
 end
-
