@@ -23,12 +23,13 @@ module Enumerable
   end
 
   def my_all?(*arg)
+    result = true
     if !arg[0].nil?
-      result = true
       my_each do |item|
         result = false unless arg[0] === item
       end
-    elsif !block_given?
+
+    elsif !block_given? 
       result = true
       my_each do |item|
         result = false unless item
@@ -41,4 +42,26 @@ module Enumerable
     end
     result
   end
+  
+  def my_any?(*arg)
+    result = false
+    if !arg[0].nil?
+      my_each do |item|
+        result = true  if arg[0] === item
+      end
+    elsif !block_given?
+      result = false
+      my_each do |item|
+        result = true if  item
+    end
+    else
+      result = false
+      my_each do |item|
+        result = true if  yield(item)
+      end
+    end
+    result
+  end
 end
+
+p check = [].my_any?  
