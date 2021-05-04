@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module Enumerable
   def my_each(&block)
     return to_enum(:my_each) unless block_given?
@@ -16,7 +17,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_select) unless block_given?
 
     my_array = []
     my_each do |item|
@@ -25,6 +26,7 @@ module Enumerable
     my_array
   end
 
+  # rubocop:disable Style/CaseEquality
   def my_all?(*arg)
     result = true
     if !arg[0].nil?
@@ -107,6 +109,7 @@ module Enumerable
     match
   end
 
+  # rubocop:enable Style/CaseEquality
   def my_map(proc = nil)
     new_arr = []
     if proc
@@ -121,6 +124,7 @@ module Enumerable
     new_arr
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
   def my_inject(acc_value = nil, symbol = nil)
     if (!acc_value.nil? && symbol.nil?) && (acc_value.is_a?(symbol) || acc_value.is_a?(string))
       symbol = acc_value
@@ -134,7 +138,10 @@ module Enumerable
     acc_value
   end
 
+  # rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+
   def multiply_els(arr)
     arr.my_inject(1, '*')
   end
 end
+# rubocop:enable Metrics/ModuleLength
