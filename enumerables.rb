@@ -65,4 +65,62 @@ module Enumerable
     end
     result
   end
+
+  def my_none?(*arg)
+    result = true
+    if !arg[0].nil?
+      my_each do |item|
+        result = false if arg[0] === item
+      end
+
+    elsif !block_given?
+      result = true
+      my_each do |item|
+        result = false if item
+      end
+
+    else
+      result = true
+      my_each do |item|
+        result = false if yield(item)
+      end
+    end
+    result
+  end
+
+  def my_count (arg = nil)
+    match = 0
+    if arg
+      my_each do |item|
+        match += 1 if item == arg
+      end
+
+      elsif block_given? 
+        my_each do |item|
+          match += 1 if yield item
+        end
+      
+      else 
+        match = self.length
+      end
+
+      match
+  end
+
+  def my_map(proc = nil)
+    new_arr = []
+    if proc
+      my_each do |item|
+        new_arr.push(proc.call(item))
+      end
+    else
+      my_each do |item|
+        new_arr.push(yield item)
+      end
+    end
+    new_arr
+  end
+
+
+
 end
