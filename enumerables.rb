@@ -88,23 +88,23 @@ module Enumerable
     result
   end
 
-  def my_count (arg = nil)
+  def my_count(arg = nil)
     match = 0
     if arg
       my_each do |item|
         match += 1 if item == arg
       end
 
-      elsif block_given? 
-        my_each do |item|
-          match += 1 if yield item
-        end
-      
-      else 
-        match = self.length
+    elsif block_given?
+      my_each do |item|
+        match += 1 if yield item
       end
 
-      match
+    else
+      match = length
+    end
+
+    match
   end
 
   def my_map(proc = nil)
@@ -121,6 +121,20 @@ module Enumerable
     new_arr
   end
 
+  def my_inject(acc_value = nil, symbol = nil)
+    if (!acc_value.nil? && symbol.nil?) && (acc_value.is_a?(symbol) || acc_value.is_a?(string))
+      symbol = acc_value
+      acc_value = nil
+    end
+    if !block_given? && !symbol.nil?
+      my_each { |i| acc_value = acc_value.nil? ? i : acc_value.send(symbol, i) }
+    else
+      my_each { |i| acc_value = acc_value.nil? ? i : yield(acc_value, i) }
+    end
+    acc_value
+  end
 
-
+  def multiply_els(arr)
+    arr.my_inject(1, '*')
+  end
 end
