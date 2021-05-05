@@ -21,7 +21,7 @@ module Enumerable
 
     my_array = []
     my_each do |item|
-      my_array.push(item) if yield(i)
+      my_array.push(item) if yield(item)
     end
     my_array
   end
@@ -111,6 +111,10 @@ module Enumerable
 
   # rubocop:enable Style/CaseEquality
   def my_map(proc = nil)
+    # rubocop:disable Lint/ToEnumArguments
+    return to_enum(:my_map) unless block_given?
+    # rubocop:enable Lint/ToEnumArguments
+
     new_arr = []
     if proc
       my_each do |item|
@@ -137,11 +141,13 @@ module Enumerable
     end
     acc_value
   end
-
   # rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-
-  def multiply_els(arr)
-    arr.my_inject(1, '*')
-  end
 end
 # rubocop:enable Metrics/ModuleLength
+
+def multiply_els(arr)
+  arr.my_inject(1, '*')
+end
+
+ary = [1, 2, 4, 2]
+p ary.my_count(&:even?)
