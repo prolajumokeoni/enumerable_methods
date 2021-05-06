@@ -3,15 +3,16 @@ module Enumerable
   def my_each(&block)
     return to_enum(:my_each) unless block_given?
 
-    to_a.each(&block)
+    each(&block)
     self
   end
 
   def my_each_with_index
-    return to_enum(:my_each_with_index) unless block_given?
-
-    (0...to_a.length).each do |i|
-      yield(to_a[i], i)
+    # return to_enum(:my_each_with_index) unless block_given?
+    i = 0
+    while i < length
+      yield i, self[i]
+      i += 1
     end
     self
   end
@@ -128,23 +129,25 @@ module Enumerable
     new_arr
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-  def my_inject(acc_value = nil, value_two = nil)
-    if (!acc_value.nil? && value_twog.nil?) && (acc_value.is_a?(symbol) || acc_value.is_a?(string))
-      value_two = acc_value
-      acc_value = nil
-    end
-    if !block_given? && !value_two.nil?
-      my_each { |i| acc_value = acc_value.nil? ? i : acc_value.send(value_two, i) }
+  def my_inject(acc_value = nil, symbol = nil)
+    arr = to_a
+    if acc_value && symbol
+      arr.my_each { |n| acc_value = acc_value.send(symbol, n) }
+    elsif acc_value && !block_given?
+      symbol = acc_value
+      acc_value = arr[0]
+      arr.drop(1).my_each { |n| acc_value = acc_value.send(symbol, n) }
+    elsif acc_value
+      arr.my_each { |n| acc_value = yield(acc_value, n) }
     else
-      my_each { |i| acc_value = acc_value.nil? ? i : yield(acc_value, i) }
+      acc_value = arr[0]
+      arr.drop(1).my_each { |n| acc_value = yield(acc_value, n) }
     end
     acc_value
   end
-  # rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 end
 # rubocop:enable Metrics/ModuleLength
 
 def multiply_els(arr)
-  arr.my_inject(1, '*')
+  arr.my_inject(1) { |result_memo, n| result_memo * n }
 end
