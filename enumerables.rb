@@ -129,13 +129,13 @@ module Enumerable
   end
 
   # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-  def my_inject(acc_value = nil, symbol = nil)
-    if (!acc_value.nil? && symbol.nil?) && (acc_value.is_a?(symbol) || acc_value.is_a?(string))
-      symbol = acc_value
+  def my_inject(acc_value = nil, value_two = nil)
+    if (!acc_value.nil? && value_twog.nil?) && (acc_value.is_a?(symbol) || acc_value.is_a?(string))
+      value_two = acc_value
       acc_value = nil
     end
-    if !block_given? && !symbol.nil?
-      my_each { |i| acc_value = acc_value.nil? ? i : acc_value.send(symbol, i) }
+    if !block_given? && !value_two.nil?
+      my_each { |i| acc_value = acc_value.nil? ? i : acc_value.send(value_two, i) }
     else
       my_each { |i| acc_value = acc_value.nil? ? i : yield(acc_value, i) }
     end
@@ -148,6 +148,3 @@ end
 def multiply_els(arr)
   arr.my_inject(1, '*')
 end
-
-ary = [1, 2, 4, 2]
-p ary.my_count(&:even?)
