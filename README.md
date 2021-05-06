@@ -31,10 +31,13 @@ Created:
 To get a local copy up and running follow these simple example steps:
 - Go to https://github.com/prolajumokeoni/enumerable_methods.git
 - Click on the code, copy and clone to your local machine
-- Methods created will run like all enumerable methods, you can copy examples from [ruby-doc.org](https://ruby-doc.org/core-3.0.1/Enumerable.html#method-i-each_cons)
+- My methods will run like all enumerable methods, to test you can copy examples from [ruby-doc.org](https://ruby-doc.org/core-3.0.1/Enumerable.html#method-i-each_cons) do not forget to  add "my" to call my methods 
 - Run "ruby enumerables.rb" (file name) in your terminal
-## Author
 
+### Prerequsites
+- For local usage, ensure you have ruby installed
+
+## Author
 👤 **Oni Olajumoke Priscilla**
 
 - [@githubhandle](https://github.com/prolajumokeoni)
