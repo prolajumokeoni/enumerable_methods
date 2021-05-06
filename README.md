@@ -30,15 +30,16 @@ Created:
 ## Getting Started
 To get a local copy up and running follow these simple example steps:
 - Go to https://github.com/prolajumokeoni/enumerable_methods.git
-- Click on the code and clone to your local machine
-
+- Click on the code, copy and clone to your local machine
+- Methods created will run like all enumerable methods, you can copy examples from [ruby-doc.org](https://ruby-doc.org/core-3.0.1/Enumerable.html#method-i-each_cons)
+- Run "ruby enumerables.rb" (file name) in your terminal
 ## Author
 
 👤 **Oni Olajumoke Priscilla**
 
-- GitHub: [@githubhandle](https://github.com/prolajumokeoni)
-- Twitter: [@twitterhandle](https://twitter.com/prolajumokeoni)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/olajumoke-priscilla-oni-44a48b162/)
+- [@githubhandle](https://github.com/prolajumokeoni)
+- [@twitterhandle](https://twitter.com/prolajumokeoni)
+- [LinkedIn](https://www.linkedin.com/in/olajumoke-priscilla-oni-44a48b162/)
 
 
 ## 🤝 Contributing
