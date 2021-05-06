@@ -103,7 +103,7 @@ module Enumerable
       end
 
     else
-      match = length
+      match = to_a.length
     end
 
     match
